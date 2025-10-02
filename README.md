@@ -1,1 +1,63 @@
-# Transformer_Attention_Mechanism
+# Transformer Attention Mechanism
+
+## Table of Contents
+- [Overview](#overview)
+- [Implementation Status](#implementation-status)
+- [File Description](#file-description)
+- [Specification](#specification)
+- [Method](#method)
+
+&nbsp;
+
+## Overview
+
+This project designs a simplified version of the transformer attention mechanism in Verilog, as shown in the figure below. All multiplication operations utilize the Chipware component CW_mult.
+
+<div align="center">
+
+<img src="media/image1.png" alt="Transformer Attention Mechanism Architecture" width="600"/>
+
+</div>
+
+&nbsp;
+
+## Implementation Status
+
+Gate-level simulation completed.
+
+&nbsp;
+
+## File Description
+
+- **TRANSFORMER_ATTENTION.v**: Main module of this project
+- **TEST.v**: Testbench of the project
+
+&nbsp;
+
+## Specification
+
+### Input Ports
+- `clk`: Clock signal
+- `reset`: Reset signal
+- `en`: Enable signal
+- `MATRIX_Q[3:0]`: Query matrix data
+- `MATRIX_K[3:0]`: Key matrix data
+- `MATRIX_V[3:0]`: Value matrix data
+
+### Output Ports
+- `done`: Done signal
+- `answer[17:0]`: Calculation result
+
+
+**Note:** 
+- All input signals are synchronized at the clock rising edge.
+- The reset scheme is an active-high asynchronous reset.
+- In logic synthesis, the timing constraint for the clock period is set to 0.55ns.
+
+&nbsp;
+
+## Method
+
+- The Verilog module needs to load three 8×8 matrices into memory: Q (query), K (key), V (value).
+
+- First step is to transpose the K matrix to form K<sup>T</sup>, then compute W = Q × K<sup>T</sup>, and finally compute the final output matrix O = W × V.

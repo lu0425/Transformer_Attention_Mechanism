@@ -15,7 +15,7 @@ This project designs a simplified version of the transformer attention mechanism
 
 <div align="center">
 
-<img src="media/image1.png" alt="Transformer Attention Mechanism Architecture" width="600"/>
+<img src="media/image1.png" alt="Transformer Attention Mechanism Architecture" width="400"/>
 
 </div>
 

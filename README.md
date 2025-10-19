@@ -11,7 +11,8 @@
 
 ## Overview
 
-This project designs a simplified version of the transformer attention mechanism in Verilog, as shown in the figure below. All multiplication operations utilize the Chipware component CW_mult.
+This project designs a simplified version of the transformer attention mechanism in Verilog, as shown in the figure below. All multiplication operations utilize the Chipware component CW_mult.<\n>
+The system receives three 8×8 matrices representing Q, K, and V. First, K is transposed to obtain Kᵀ. Then, Q is multiplied by Kᵀ to produce the W matrix. Next, W is multiplied by V to generate the final output matrix O. Finally, the information of the O matrix is output when the done signal is asserted high.
 
 <div align="center">
 

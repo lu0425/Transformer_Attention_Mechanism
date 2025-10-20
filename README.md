@@ -75,13 +75,6 @@ Gate-level simulation completed.
 
 ## Method
 
-- The Verilog module needs to load three 8×8 matrices into memory: Q (query), K (key), V (value).
-
-- First step is to transpose the K matrix to form K<sup>T</sup>, then compute W = Q × K<sup>T</sup>, and finally compute the final output matrix O = W × V.
-
-
-## Method
-
 The attention mechanism is implemented through a sequential matrix operation pipeline:
 
 ### Step 1: Matrix Input Loading

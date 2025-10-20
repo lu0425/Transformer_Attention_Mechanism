@@ -78,3 +78,96 @@ Gate-level simulation completed.
 - The Verilog module needs to load three 8×8 matrices into memory: Q (query), K (key), V (value).
 
 - First step is to transpose the K matrix to form K<sup>T</sup>, then compute W = Q × K<sup>T</sup>, and finally compute the final output matrix O = W × V.
+
+
+## Method
+
+The attention mechanism is implemented through a sequential matrix operation pipeline:
+
+### Step 1: Matrix Input Loading
+
+The Verilog module receives three 8×8 matrices as input:
+- **Q (Query)**: 8×8 matrix with 4-bit elements
+- **K (Key)**: 8×8 matrix with 4-bit elements
+- **V (Value)**: 8×8 matrix with 4-bit elements
+
+Each matrix element is loaded serially through the respective input ports (`MATRIX_Q[3:0]`, `MATRIX_K[3:0]`, `MATRIX_V[3:0]`) and stored in internal registers.
+
+---
+
+### Step 2: Transpose K Matrix
+
+Transpose the Key matrix to obtain K<sup>T</sup>:
+```
+Kᵀ[i][j] = K[j][i]  for i, j = 0 to 7
+```
+
+**Example**:
+```
+K = [a b c ...]        Kᵀ = [a d g ...]
+    [d e f ...]    →        [b e h ...]
+    [g h i ...]             [c f i ...]
+```
+
+This transpose operation prepares K for computing similarity scores with Q.
+
+---
+
+### Step 3: Compute Attention Weight Matrix W
+
+Calculate the attention weights through matrix multiplication:
+```
+W = Q × Kᵀ
+```
+
+**Operation Details**:
+- **Dimensions**: (8×8) × (8×8) = (8×8)
+- **Computation**: Each element W[i][j] is computed as:
+```
+  W[i][j] = Σ(k=0 to 7) Q[i][k] × Kᵀ[k][j]
+```
+- **Hardware**: Uses CW_mult component for each multiplication
+- **Meaning**: W[i][j] represents the similarity/relevance score between query i and key j
+
+---
+
+### Step 4: Compute Final Output Matrix O
+
+Generate the weighted output through another matrix multiplication:
+```
+O = W × V
+```
+
+**Operation Details**:
+- **Dimensions**: (8×8) × (8×8) = (8×8)
+- **Computation**: Each element O[i][j] is computed as:
+```
+  O[i][j] = Σ(k=0 to 7) W[i][k] × V[k][j]
+```
+- **Hardware**: Uses CW_mult component for multiplication and accumulation
+- **Meaning**: O combines information from V weighted by the attention scores in W
+
+---
+
+### Step 5: Output Results
+
+Once computation completes:
+1. Assert `done` signal HIGH
+2. Output matrix O elements sequentially through `answer[17:0]` port
+3. Each output element is 18-bit to accommodate accumulated multiplication results
+
+---
+
+### Overall Data Flow
+```
+Input Stage          Transpose        Attention Weights      Weighted Output       Output Stage
+    ↓                    ↓                  ↓                      ↓                     ↓
+Load Q, K, V  →  Compute Kᵀ  →  W = Q × Kᵀ  →  O = W × V  →  Assert done & output
+(Sequential)     (Reorder)      (CW_mult)       (CW_mult)      (Sequential)
+```
+
+**Key Implementation Details**:
+- All operations are synchronized by the clock signal
+- Matrix multiplications use the **CW_mult** Chipware component
+- Control logic sequences operations using a finite state machine (FSM)
+- Output width (18-bit) prevents overflow from accumulated multiplications

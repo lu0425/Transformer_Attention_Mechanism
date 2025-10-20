@@ -158,14 +158,6 @@ Once computation completes:
 
 ---
 
-### Overall Data Flow
-```
-Input Stage          Transpose        Attention Weights      Weighted Output       Output Stage
-    ↓                    ↓                  ↓                      ↓                     ↓
-Load Q, K, V  →  Compute Kᵀ  →  W = Q × Kᵀ  →  O = W × V  →  Assert done & output
-(Sequential)     (Reorder)      (CW_mult)       (CW_mult)      (Sequential)
-```
-
 **Key Implementation Details**:
 - All operations are synchronized by the clock signal
 - Matrix multiplications use the **CW_mult** Chipware component

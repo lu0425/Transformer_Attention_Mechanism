@@ -77,7 +77,7 @@ Gate-level simulation completed.
 
 The attention mechanism is implemented through a sequential matrix operation pipeline:
 
-### Step 1: Matrix Input Loading
+### ◆ Step 1: Matrix Input Loading
 
 The Verilog module receives three 8×8 matrices as input:
 - **Q (Query)**: 8×8 matrix with 4-bit elements
@@ -88,7 +88,7 @@ Each matrix element is loaded serially through the respective input ports (`MATR
 
 ---
 
-### Step 2: Transpose K Matrix
+### ◆ Step 2: Transpose K Matrix
 
 Transpose the Key matrix to obtain K<sup>T</sup>:
 ```
@@ -106,7 +106,7 @@ This transpose operation prepares K for computing similarity scores with Q.
 
 ---
 
-### Step 3: Compute Attention Weight Matrix W
+### ◆ Step 3: Compute Attention Weight Matrix W
 
 Calculate the attention weights through matrix multiplication:
 ```
@@ -124,7 +124,7 @@ W = Q × Kᵀ
 
 ---
 
-### Step 4: Compute Final Output Matrix O
+### ◆ Step 4: Compute Final Output Matrix O
 
 Generate the weighted output through another matrix multiplication:
 ```
@@ -142,7 +142,7 @@ O = W × V
 
 ---
 
-### Step 5: Output Results
+### ◆ Step 5: Output Results
 
 Once computation completes:
 1. Assert `done` signal HIGH

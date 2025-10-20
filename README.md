@@ -155,11 +155,3 @@ Once computation completes:
 1. Assert `done` signal HIGH
 2. Output matrix O elements sequentially through `answer[17:0]` port
 3. Each output element is 18-bit to accommodate accumulated multiplication results
-
----
-
-**Key Implementation Details**:
-- All operations are synchronized by the clock signal
-- Matrix multiplications use the **CW_mult** Chipware component
-- Control logic sequences operations using a finite state machine (FSM)
-- Output width (18-bit) prevents overflow from accumulated multiplications

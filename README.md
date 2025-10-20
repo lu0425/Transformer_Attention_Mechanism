@@ -54,16 +54,22 @@ Gate-level simulation completed.
 ## Specification
 
 ### Input Ports
-- `clk`: Clock signal
-- `reset`: Reset signal
-- `en`: Enable signal
-- `MATRIX_Q[3:0]`: Query matrix data
-- `MATRIX_K[3:0]`: Key matrix data
-- `MATRIX_V[3:0]`: Value matrix data
+
+| Port Name | Width | Description |
+|-----------|-------|-------------|
+| `clk` | 1-bit | Clock signal |
+| `reset` | 1-bit | Reset signal |
+| `en` | 1-bit | Enable signal |
+| `MATRIX_Q[3:0]` | 4-bit | Query matrix data |
+| `MATRIX_K[3:0]` | 4-bit | Key matrix data |
+| `MATRIX_V[3:0]` | 4-bit | Value matrix data |
 
 ### Output Ports
-- `done`: Done signal
-- `answer[17:0]`: Calculation result
+
+| Port Name | Width | Description |
+|-----------|-------|-------------|
+| `done` | 1-bit | Done signal |
+| `answer[17:0]` | 18-bit | Calculation result |
 
 
 **Note:** 

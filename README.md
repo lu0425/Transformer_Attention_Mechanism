@@ -15,7 +15,14 @@ This project designs a simplified version of the transformer attention mechanism
 
 ### Brief introduction of attention mechanism
 
-The attention mechanism is the core of Transformer architectures, enabling models to dynamically focus on relevant parts of the input. It computes weighted outputs based on the relationships between Query (Q), Key (K), and Value (V) matrices.
+The **attention mechanism** is the core of Transformer architectures, enabling models to dynamically focus on relevant parts of the input. It computes weighted outputs based on the relationships between Query (Q), Key (K), and Value (V) matrices:
+
+- **Query (Q)**: Represents "what we are looking for" - the current element seeking information
+- **Key (K)**: Represents "what information is available" - used to match with queries
+- **Value (V)**: Represents "the actual information to retrieve" - the content to be weighted and aggregated
+
+The mechanism works like a database lookup: Q searches through K to find relevant matches, then retrieves the corresponding V values weighted by their relevance.
+
 
 **Basic Formula**: `Attention(Q, K, V) = (Q × Kᵀ) × V`
 

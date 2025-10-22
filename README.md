@@ -40,7 +40,7 @@ The system receives three 8×8 matrices representing Q, K, and V. First, K is tr
 
 ## Implementation Status
 
-Gate-level simulation completed.
+The project has completed gate-level simulation.
 
 &nbsp;
 
